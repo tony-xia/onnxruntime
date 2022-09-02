@@ -47,20 +47,25 @@ jobs:
       script: |-
         export ROCM_HOME=/opt/rocm
         python tools/ci_build/build.py \
-        --config RelWithDebInfo \
-        --enable_training \
-        --enable_training_torch_interop \
-        --mpi_home /opt/ompi \
-        --use_rocm \
-        --rocm_version=5.2.3 \
-        --rocm_home /opt/rocm \
-        --nccl_home /opt/rocm \
-        --update \
-        --build_dir ./build \
-        --build \
-        --parallel 8 \
-        --build_wheel \
-        --skip_tests
+          --config RelWithDebInfo \
+          --enable_training \
+          --enable_training_torch_interop \
+          --mpi_home /opt/ompi \
+          --cmake_generator Ninja \
+          --cmake_extra_defines \
+              CMAKE_C_COMPILER=${ROCM_HOME}/llvm/bin/clang \
+              CMAKE_CXX_COMPILER=${ROCM_HOME}/llvm/bin/clang++ \
+          --use_rocm \
+          --rocm_version=5.2.3 \
+          --rocm_home /opt/rocm \
+          --nccl_home /opt/rocm \
+          --update \
+          --build_dir ./build \
+          --parallel 8 \
+          --build_wheel \
+          --skip_tests \
+          --skip_submodule_sync
+        cmake --build ./build/RelWithDebInfo
     displayName: 'Build onnxruntime'
 
   - bash: |-
@@ -319,6 +324,14 @@ jobs:
     displayName: 'Run C++ BERT-L convergence test'
     retryCountOnTaskFailure: 1
     condition: and(succeededOrFailed(), eq(variables.onnxruntimeBuildSucceeded, 'true')) # ensure all tests are run when the build successed
+
+  - task: CmdLine@2
+    inputs:
+      script: |-
+        export KERNEL_EXPLORER_BUILD_DIR=./build/RelWithDebInfo
+        pytest ./onnxruntime/python/tools/kernel_explorer/
+    displayName: 'Test kernel explorer'
+    condition: and(succeededOrFailed(), eq(variables.onnxruntimeBuildSucceeded, 'true'))
 
   - script: |
       sudo apt-get update
