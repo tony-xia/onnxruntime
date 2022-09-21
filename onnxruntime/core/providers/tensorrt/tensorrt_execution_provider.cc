@@ -1048,7 +1048,7 @@ bool TensorrtExecutionProvider::DetectTensorRTGraphCycles(SubGraphCollection_t& 
 
 std::vector<std::unique_ptr<ComputeCapability>>
 TensorrtExecutionProvider::GetCapability(const GraphViewer& graph,
-                                         const std::vector<const KernelRegistry*>& /*kernel_registries*/) const {
+                                         const IKernelLookup& /*kernel_lookup*/) const {
   // Get ModelPath
   const auto& path_string = graph.ModelPath().ToPathString();
 #ifdef _WIN32
@@ -2140,7 +2140,8 @@ common::Status TensorrtExecutionProvider::Compile(const std::vector<FusedNodeAnd
 }
 
 void TensorrtExecutionProvider::RegisterStreamHandlers(IStreamCommandHandleRegistry& stream_handle_registry) const {
-  RegisterCudaStreamHandles(stream_handle_registry, OrtDevice::GPU, stream_, external_stream_, external_cudnn_handle_, external_cublas_handle_);
+  auto allocator = GetAllocator(DEFAULT_CPU_ALLOCATOR_DEVICE_ID, OrtMemTypeCPU);
+  RegisterCudaStreamHandles(stream_handle_registry, OrtDevice::GPU, allocator, true, stream_, external_stream_, external_cudnn_handle_, external_cublas_handle_);
 }
 
 }  // namespace onnxruntime
