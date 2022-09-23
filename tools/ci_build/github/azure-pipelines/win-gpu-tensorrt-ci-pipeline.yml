@@ -5,8 +5,14 @@ parameters:
   type: boolean
   default: true
 
-- template: templates/win-gpu-ci.yml
-  parameters:
+
+
+stages:
+- stage: cuda
+  dependsOn: []
+  jobs:
+  - template: templates/win-gpu-ci.yml
+    parameters:
         BuildConfig: 'RelWithDebInfo'
         EnvSetupScript: setup_env_trt.bat
         buildArch: x64
