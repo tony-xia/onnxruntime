@@ -50,14 +50,21 @@ parameters:
   type: boolean
   default: false
 
+- name: ALLOW_RELEASED_ONNX_OPSET_ONLY
+  type: boolean
+  default: false
+
 jobs:
 - job: build_${{ parameters.job_name_suffix }}
   variables:
+    - ${{ if eq(parameters.RunStaticCodeAnalysis, true) }}:
+        ALLOW_RELEASED_ONNX_OPSET_ONLY: '1'
+    - ${{ if eq(parameters.RunStaticCodeAnalysis, false) }}:
+        ALLOW_RELEASED_ONNX_OPSET_ONLY: '0'
     OrtPackageId: 'Microsoft.ML.OnnxRuntime'
     OnnxRuntimeBuildDirectory: '$(Build.BinariesDirectory)'
     DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
     setVcvars: true
-    ALLOW_RELEASED_ONNX_OPSET_ONLY: '0'
     DocUpdateNeeded: ${{ parameters.DocUpdateNeeded }}
     skipComponentGovernanceDetection: true
   workspace:
