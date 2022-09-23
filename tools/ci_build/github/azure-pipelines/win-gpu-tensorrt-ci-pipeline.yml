@@ -5,7 +5,6 @@ parameters:
   type: boolean
   default: true
 
-jobs:
 - template: templates/win-gpu-ci.yml
   parameters:
         BuildConfig: 'RelWithDebInfo'
