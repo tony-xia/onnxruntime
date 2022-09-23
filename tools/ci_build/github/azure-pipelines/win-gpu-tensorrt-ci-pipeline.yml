@@ -6,8 +6,8 @@ parameters:
   default: true
 
 jobs:
-    - template: templates/win-gpu-ci.yml
-      parameters:
+- template: templates/win-gpu-ci.yml
+  parameters:
         BuildConfig: 'RelWithDebInfo'
         EnvSetupScript: setup_env_trt.bat
         buildArch: x64
