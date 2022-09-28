@@ -55,6 +55,10 @@ jobs:
           --cmake_extra_defines \
               CMAKE_C_COMPILER=${ROCM_HOME}/llvm/bin/clang \
               CMAKE_CXX_COMPILER=${ROCM_HOME}/llvm/bin/clang++ \
+              onnxruntime_DISABLE_CONTRIB_OPS=OFF \
+              onnxruntime_DISABLE_ML_OPS=OFF \
+              onnxruntime_DEV_MODE=OFF \
+              onnxruntime_BUILD_KERNEL_EXPLORER=ON \
           --use_rocm \
           --rocm_version=5.2.3 \
           --rocm_home /opt/rocm \
