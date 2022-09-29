@@ -8,7 +8,7 @@ resources:
 
 jobs:
 - job: Linux_CI_GPU_TENSORRT_Dev
-  pool: onnxruntime-tensorrt-linuxbuild
+  pool: onnxruntime-tensorrt-linuxbuild-T4
   variables:
     ALLOW_RELEASED_ONNX_OPSET_ONLY: '1'
     skipComponentGovernanceDetection: true

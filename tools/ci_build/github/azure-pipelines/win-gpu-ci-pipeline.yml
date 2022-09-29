@@ -20,7 +20,7 @@ stages:
         RunOnnxRuntimeTests: ${{ parameters.RunOnnxRuntimeTests }}
         RunStaticCodeAnalysis: false
         ORT_EP_NAME: CUDA
-        MachinePool: onnxruntime-Win2019-GPU
+        MachinePool: onnxruntime-Win2019-GPU-T4
 
 - stage: training
   dependsOn: []
@@ -37,7 +37,7 @@ stages:
         RunOnnxRuntimeTests: ${{ parameters.RunOnnxRuntimeTests }}
         RunStaticCodeAnalysis: false
         ORT_EP_NAME: CUDA
-        MachinePool: onnxruntime-Win2019-GPU-training
+        MachinePool: onnxruntime-Win2019-GPU-training-T4
         isTraining: true
 
 - stage: dml
@@ -55,7 +55,7 @@ stages:
         RunOnnxRuntimeTests: ${{ parameters.RunOnnxRuntimeTests }}
         RunStaticCodeAnalysis: false
         ORT_EP_NAME: DML
-        MachinePool: onnxruntime-Win2019-GPU-dml
+        MachinePool: onnxruntime-Win2019-GPU-dml-T4
 
 - stage: kernelDocumentation
   dependsOn: []
