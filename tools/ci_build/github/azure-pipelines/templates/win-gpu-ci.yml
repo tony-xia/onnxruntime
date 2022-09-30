@@ -102,6 +102,7 @@ jobs:
     displayName: 'API Documentation Check and generate'
 
   - script: |
+     nvidia-smi
      python -m pip install -q setuptools wheel numpy
     workingDirectory: '$(Build.BinariesDirectory)'
     displayName: 'Install python modules'
