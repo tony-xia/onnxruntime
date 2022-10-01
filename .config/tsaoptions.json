@@ -4,5 +4,6 @@
   "codebaseName": "onnxruntime_github",
   "instanceUrl": "https://aiinfra.visualstudio.com/",
   "projectName": "ONNX%20Runtime",
-  "ignoreBranchName": true
+  "ignoreBranchName": true,
+  "template": "AIINFRA_TSA"
 }
