@@ -3,7 +3,7 @@
   "areaPath": "ONNX Runtime\\Engineering Systems",
   "codebaseName": "onnxruntime_github",
   "instanceUrl": "https://aiinfra.visualstudio.com/",
-  "projectName": "ONNX%20Runtime",
+  "projectName": "ONNX Runtime",
   "ignoreBranchName": true,
   "template": "AIINFRA_TSA"
 }
